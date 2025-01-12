@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 /* -------------------------------------------------
+ * https://docs.unity3d.com/Manual/class-InputManager.html
  * CONTROLS: 
  * 
  * 1) wasd for movement
