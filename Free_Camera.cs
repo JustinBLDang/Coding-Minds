@@ -7,7 +7,7 @@ using UnityEngine;
  * 
  * 1) wasd for movement
  * 2) mouse for orientation
- * 3) tab to lock orientation
+ * 3) left alt to lock orientation
  * -------------------------------------------------
  */
 public class Free_Camera : MonoBehaviour
