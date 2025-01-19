@@ -27,7 +27,7 @@ public class Free_Camera : MonoBehaviour
     float Z_Input;
 
     // Lock Camera on start to not conflict with player
-    bool cameraLock = true;
+    bool cameraLock = false;
 
     void Start()
     {
