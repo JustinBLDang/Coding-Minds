@@ -8,14 +8,13 @@ using UnityEngine;
  * 
  * 1) wasd for movement
  * 2) mouse for orientation
- * 3) left alt to lock orientation
+ * 3) left alt to lock Camera
  * -------------------------------------------------
  */
 public class Free_Camera : MonoBehaviour
 {
     [SerializeField] float default_speed = 5f;
     [SerializeField] float camera_sensitivity = 300f;
-    [SerializeField] GameObject player;
     float movement_speed;
     float vertical_Rotation;
     float horizontal_Rotation;
@@ -83,7 +82,6 @@ public class Free_Camera : MonoBehaviour
         if (Input.GetKeyDown("left alt"))
         {
             cameraLock = !cameraLock;
-            player.gameObject.SetActive(cameraLock);
         }
     }
 
