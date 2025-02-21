@@ -8,6 +8,8 @@ using Unity.MLAgents.Sensors;
 public class MoveToGoalAgent : Agent
 {
     [SerializeField] Transform goalPosition;
+    [SerializeField] float moveSpeed = 1f;
+    
     public override void OnEpisodeBegin()
     {
         transform.position = Vector3.zero;
@@ -23,7 +25,6 @@ public class MoveToGoalAgent : Agent
         float moveX = actions.ContinuousActions[0];
         float moveY = actions.ContinuousActions[1];
 
-        float moveSpeed = 1f;
         transform.position += new Vector3(moveX, 0, moveY) * Time.deltaTime * moveSpeed;
     }
 
