@@ -14,7 +14,7 @@ class ChatGPTScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        api = new OpenAIAPI("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");
+        api = new OpenAIAPI("OpenAI Key");
         TestFunc();
     }
 
