@@ -55,6 +55,7 @@ public class RocketAgent : Agent
         }
         sensor.AddObservation(transform.localPosition);
         sensor.AddObservation(rb.velocity);
+        sensor.AddObservation(LandingPad.gameObject.transform);
     }
     public override void OnActionReceived(ActionBuffers actions)
     {
