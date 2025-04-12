@@ -18,6 +18,7 @@ public class RocketAgent : Agent
     [SerializeField] float controlThrust = 1;
     [SerializeField] Transform startPosition;
     [SerializeField] Material failMaterial;
+    [SerializeField] Material progressMaterial;
     [SerializeField] Material successMaterial;
     [SerializeField] MeshRenderer platformMesh;
     [SerializeField] GameObject LandingPad;
@@ -74,7 +75,7 @@ public class RocketAgent : Agent
             currentSpeedSquared = rb.velocity.y * rb.velocity.y;
             if(-1f * successRange <= currentSpeedSquared && successRange >= currentSpeedSquared)
             {
-                platformMesh.material = successMaterial;
+                platformMesh.material = progressMaterial;
                 AddReward(100f + (1000 / currentSpeedSquared)); 
                 LandingPad.gameObject.tag = "landingGoal";
             }
@@ -88,6 +89,7 @@ public class RocketAgent : Agent
         if(other.gameObject.tag == "heightLimit")
         {
             AddReward(-50f);
+            platformMesh.material = successMaterial;
             EndEpisode();
         }
     }
@@ -97,6 +99,7 @@ public class RocketAgent : Agent
         {
             //Debug.Log("landingGoal");
             AddReward(100f);
+            LandingPad.gameObject.tag = "ground";
             EndEpisode();
         }
     }
