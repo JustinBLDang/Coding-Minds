@@ -36,14 +36,15 @@ public class RocketAgent : Agent
         goalManager.resetGoals();
         timeSinceLastExecution = Time.time;
         lastPosition = transform.position;
+        LandingPad.gameObject.tag = "ground";
     }
     private void FixedUpdate()
     {
-        if (Time.time - timeSinceLastExecution >= 1f)
+        if (Time.time - timeSinceLastExecution >= 3f)
         {
-            if (Vector3.Magnitude(transform.position - lastPosition) <= 1)
+            if (Vector3.Magnitude(transform.position - lastPosition) <= 1f)
             {
-                AddReward(-1f);
+                AddReward(-5f);
             }
             timeSinceLastExecution = Time.time;
         }
@@ -76,20 +77,20 @@ public class RocketAgent : Agent
             if(-1f * successRange <= currentSpeedSquared && successRange >= currentSpeedSquared)
             {
                 platformMesh.material = progressMaterial;
-                AddReward(100f + (1000 / currentSpeedSquared)); 
+                AddReward(100f + (4000 / currentSpeedSquared)); 
                 LandingPad.gameObject.tag = "landingGoal";
             }
             else
             {
                 platformMesh.material = failMaterial;
-                AddReward(-20f + (1000 / currentSpeedSquared));
+                AddReward(-20f + (4000 / currentSpeedSquared));
                 EndEpisode();
             }
         }
         if(other.gameObject.tag == "heightLimit")
         {
-            AddReward(-50f);
-            platformMesh.material = successMaterial;
+            AddReward(-75f);
+            platformMesh.material = progressMaterial;
             EndEpisode();
         }
     }
@@ -98,29 +99,29 @@ public class RocketAgent : Agent
         if (collision.gameObject.tag == "landingGoal")
         {
             //Debug.Log("landingGoal");
-            AddReward(100f);
-            LandingPad.gameObject.tag = "ground";
+            AddReward(500f + (4000 / currentSpeedSquared));
+            platformMesh.material = successMaterial;
             EndEpisode();
         }
     }
     void MainThrust(float strength)
     {
-        rb.AddForce(transform.up.normalized * mainThrust * Math.Abs(strength), ForceMode.Force);
+        rb.AddForce(transform.up.normalized * mainThrust * Math.Max(strength, 0), ForceMode.Force);
     }
     void ForwardThrust(float strength)
     {
-        rb.AddForceAtPosition(transform.up.normalized * controlThrust * Math.Abs(strength), fThrust.transform.localPosition, ForceMode.Force);
+        rb.AddForceAtPosition(transform.up.normalized * controlThrust * Math.Max(strength, 0), fThrust.transform.localPosition, ForceMode.Force);
     }
     void BackwardThrust(float strength)
     {
-        rb.AddForceAtPosition(transform.up.normalized * controlThrust * Math.Abs(strength), bThrust.transform.localPosition, ForceMode.Force);
+        rb.AddForceAtPosition(transform.up.normalized * controlThrust * Math.Max(strength, 0), bThrust.transform.localPosition, ForceMode.Force);
     }
     void LeftThrust(float strength)
     {
-        rb.AddForceAtPosition(transform.up.normalized * controlThrust * Math.Abs(strength), lThrust.transform.localPosition, ForceMode.Force);
+        rb.AddForceAtPosition(transform.up.normalized * controlThrust * Math.Max(strength, 0), lThrust.transform.localPosition, ForceMode.Force);
     }
     void RightThrust(float strength)
     {
-        rb.AddForceAtPosition(transform.up.normalized * controlThrust * Math.Abs(strength), rThrust.transform.localPosition, ForceMode.Force);
+        rb.AddForceAtPosition(transform.up.normalized * controlThrust * Math.Max(strength, 0), rThrust.transform.localPosition, ForceMode.Force);
     }
 }
